@@ -17,6 +17,8 @@ using std::unordered_map;
 #define WIDTH 1200
 #define HEIGHT 800
 
+#define MOVESPEED 5.0
+
 int main() {
     // create window
     sf::RenderWindow win(sf::VideoMode(WIDTH, HEIGHT), "Window",
@@ -72,15 +74,19 @@ int main() {
         // rendering
         win.clear();
         if (ih.find('w') != ih.end() && ih['w']) {
+            shape.move(Vector2f(0.0, -MOVESPEED));
             cout << "w";
         }
         if (ih.find('a') != ih.end() && ih['a']) {
+            shape.move(Vector2f(-MOVESPEED, 0.0));
             cout << "a";
         }
         if (ih.find('s') != ih.end() && ih['s']) {
+            shape.move(Vector2f(0.0, MOVESPEED));
             cout << "s";
         }
         if (ih.find('d') != ih.end() && ih['d']) {
+            shape.move(Vector2f(MOVESPEED, 0.0));
             cout << "d";
         }
         cout << endl;
