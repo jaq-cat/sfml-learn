@@ -32,9 +32,11 @@ int main() {
                 case Event::Closed:
                     win.close();
                     break;
-                case Event::KeyPressed:
-                    if (ev.text.unicode < 128) // if in valid unicode range
+                case Event::TextEntered:
+                    if (32 < ev.text.unicode && ev.text.unicode < 127) // if in valid unicode range
                         cout << static_cast<char>(ev.text.unicode) << endl;
+                    break;
+                case Event::KeyPressed:
                     break;
                 default:
                     break;
