@@ -17,6 +17,7 @@ using std::unordered_map;
 #define WIDTH 1200
 #define HEIGHT 800
 
+#define RADIUS 20.0
 #define MOVESPEED 5.0
 
 int main() {
@@ -30,7 +31,7 @@ int main() {
     unordered_map<char, bool> ih = unordered_map<char, bool>();
 
     // initialization
-    sf::CircleShape shape(100.0f);
+    sf::CircleShape shape(RADIUS);
     shape.setFillColor(Color::Green);
 
     while (win.isOpen()) {
@@ -71,24 +72,21 @@ int main() {
 
             }
         }
-        // rendering
-        win.clear();
+        // updating
         if (ih.find('w') != ih.end() && ih['w']) {
             shape.move(Vector2f(0.0, -MOVESPEED));
-            cout << "w";
         }
         if (ih.find('a') != ih.end() && ih['a']) {
             shape.move(Vector2f(-MOVESPEED, 0.0));
-            cout << "a";
         }
         if (ih.find('s') != ih.end() && ih['s']) {
             shape.move(Vector2f(0.0, MOVESPEED));
-            cout << "s";
         }
         if (ih.find('d') != ih.end() && ih['d']) {
             shape.move(Vector2f(MOVESPEED, 0.0));
-            cout << "d";
         }
+        // rendering
+        win.clear();
         cout << endl;
         win.draw(shape);
         win.display();
