@@ -8,6 +8,7 @@ using sf::Vector2f;
 using sf::Color;
 using sf::Event;
 using sf::Keyboard;
+using sf::CircleShape;
 
 using std::string;
 using std::cout;
@@ -31,8 +32,8 @@ int main() {
     unordered_map<char, bool> ih = unordered_map<char, bool>();
 
     // initialization
-    sf::CircleShape shape(RADIUS);
-    shape.setFillColor(Color::Green);
+    CircleShape player(RADIUS);
+    player.setFillColor(Color::Green);
     Vector2f pos;
 
     while (win.isOpen()) {
@@ -75,32 +76,32 @@ int main() {
         }
         // updating
         if (ih.find('w') != ih.end() && ih['w']) {
-            shape.move(Vector2f(0.0, -MOVESPEED));
+            player.move(Vector2f(0.0, -MOVESPEED));
         }
         if (ih.find('a') != ih.end() && ih['a']) {
-            shape.move(Vector2f(-MOVESPEED, 0.0));
+            player.move(Vector2f(-MOVESPEED, 0.0));
         }
         if (ih.find('s') != ih.end() && ih['s']) {
-            shape.move(Vector2f(0.0, MOVESPEED));
+            player.move(Vector2f(0.0, MOVESPEED));
         }
         if (ih.find('d') != ih.end() && ih['d']) {
-            shape.move(Vector2f(MOVESPEED, 0.0));
+            player.move(Vector2f(MOVESPEED, 0.0));
         }
         // collision
-        pos = shape.getPosition();
+        pos = player.getPosition();
         if (pos.x < 0)
-            shape.setPosition(0, pos.y);
+            player.setPosition(0, pos.y);
         else if (pos.x > WIDTH - RADIUS * 2)
-            shape.setPosition(WIDTH - RADIUS * 2, pos.y);
-        pos = shape.getPosition();
+            player.setPosition(WIDTH - RADIUS * 2, pos.y);
+        pos = player.getPosition();
         if (pos.y < 0)
-            shape.setPosition(pos.x, 0);
+            player.setPosition(pos.x, 0);
         else if (pos.y > HEIGHT - RADIUS * 2)
-            shape.setPosition(pos.x, HEIGHT - RADIUS * 2);
+            player.setPosition(pos.x, HEIGHT - RADIUS * 2);
         // rendering
         win.clear();
         cout << endl;
-        win.draw(shape);
+        win.draw(player);
         win.display();
     }
     return 0;
