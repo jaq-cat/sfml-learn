@@ -85,6 +85,12 @@ int main() {
         if (ih.find('d') != ih.end() && ih['d']) {
             shape.move(Vector2f(MOVESPEED, 0.0));
         }
+        // collision
+        sf::Vector2f pos = shape.getPosition();
+        if (pos.x < 0)
+            shape.setPosition(0, pos.y);
+        else if (pos.x > WIDTH - RADIUS * 2)
+            shape.setPosition(WIDTH - RADIUS * 2, pos.y);
         // rendering
         win.clear();
         cout << endl;
