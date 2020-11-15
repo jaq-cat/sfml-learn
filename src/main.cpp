@@ -38,6 +38,7 @@ int main() {
     // enemy
     CircleShape enemy(RADIUS*2);
     enemy.setFillColor(Color::Red);
+    float ex = 10, ey = 10;
 
     Vector2f pos;
 
@@ -92,6 +93,7 @@ int main() {
         if (ih.find('d') != ih.end() && ih['d']) {
             player.move(Vector2f(MOVESPEED, 0.0));
         }
+        enemy.move(ex, ey);
         // collision
         pos = player.getPosition();
         if (pos.x < 0)
@@ -105,14 +107,14 @@ int main() {
             player.setPosition(pos.x, HEIGHT - RADIUS * 2);
         pos = enemy.getPosition();
         if (pos.x < 0)
-            enemy.setPosition(0, pos.y);
-        else if (pos.x > WIDTH - RADIUS * 2)
-            enemy.setPosition(WIDTH - RADIUS * 2, pos.y);
-        pos = player.getPosition();
+            ex *= -1;
+        else if (pos.x > WIDTH - RADIUS * 4)
+            ex *= -1;
+        pos = enemy.getPosition();
         if (pos.y < 0)
-            enemy.setPosition(pos.x, 0);
-        else if (pos.y > HEIGHT - RADIUS * 2)
-            enemy.setPosition(pos.x, HEIGHT - RADIUS * 2);
+            ey *= -1;
+        else if (pos.y > HEIGHT - RADIUS * 4)
+            ey *= -1;
         // rendering
         win.clear();
         cout << endl;
