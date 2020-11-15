@@ -1,3 +1,9 @@
+#define WIDTH 1200
+#define HEIGHT 800
+
+#define RADIUS 20.0
+#define MOVESPEED 20.0
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <unordered_map>
@@ -15,12 +21,6 @@ using std::cout;
 using std::endl;
 using std::unordered_map;
 
-#define WIDTH 1200
-#define HEIGHT 800
-
-#define RADIUS 20.0
-#define MOVESPEED 5.0
-
 int main() {
     // create window
     sf::RenderWindow win(sf::VideoMode(WIDTH, HEIGHT), "Window",
@@ -32,8 +32,13 @@ int main() {
     unordered_map<char, bool> ih = unordered_map<char, bool>();
 
     // initialization
+    // player
     CircleShape player(RADIUS);
     player.setFillColor(Color::Green);
+    // enemy
+    CircleShape enemy(RADIUS*2);
+    enemy.setFillColor(Color::Red);
+
     Vector2f pos;
 
     while (win.isOpen()) {
@@ -98,10 +103,21 @@ int main() {
             player.setPosition(pos.x, 0);
         else if (pos.y > HEIGHT - RADIUS * 2)
             player.setPosition(pos.x, HEIGHT - RADIUS * 2);
+        pos = enemy.getPosition();
+        if (pos.x < 0)
+            enemy.setPosition(0, pos.y);
+        else if (pos.x > WIDTH - RADIUS * 2)
+            enemy.setPosition(WIDTH - RADIUS * 2, pos.y);
+        pos = player.getPosition();
+        if (pos.y < 0)
+            enemy.setPosition(pos.x, 0);
+        else if (pos.y > HEIGHT - RADIUS * 2)
+            enemy.setPosition(pos.x, HEIGHT - RADIUS * 2);
         // rendering
         win.clear();
         cout << endl;
         win.draw(player);
+        win.draw(enemy);
         win.display();
     }
     return 0;
