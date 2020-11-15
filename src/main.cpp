@@ -45,20 +45,24 @@ int main() {
                         //cout << static_cast<char>(ev.text.unicode) << endl;
                     break;
                 case Event::KeyPressed:
-                    if (ev.key.code == Keyboard::W) {
+                    if (ev.key.code == Keyboard::W)
                         ih['w'] = true;
-                    }
-                    //else if (ev.key.code == Keyboard::A)
-                    //else if (ev.key.code == Keyboard::S)
-                    //else if (ev.key.code == Keyboard::D)
+                    else if (ev.key.code == Keyboard::A)
+                        ih['a'] = true;
+                    else if (ev.key.code == Keyboard::S)
+                        ih['s'] = true;
+                    else if (ev.key.code == Keyboard::D)
+                        ih['d'] = true;
                     break;
                 case Event::KeyReleased:
-                    if (ev.key.code == Keyboard::W) {
+                    if (ev.key.code == Keyboard::W)
                         ih['w'] = false;
-                    }
-                    //else if (ev.key.code == Keyboard::A)
-                    //else if (ev.key.code == Keyboard::S)
-                    //else if (ev.key.code == Keyboard::D)
+                    else if (ev.key.code == Keyboard::A)
+                        ih['a'] = false;
+                    else if (ev.key.code == Keyboard::S)
+                        ih['s'] = false;
+                    else if (ev.key.code == Keyboard::D)
+                        ih['d'] = false;
                     break;
                 default:
                     break;
@@ -68,8 +72,18 @@ int main() {
         // rendering
         win.clear();
         if (ih.find('w') != ih.end() && ih['w']) {
-            cout << "w" << endl;
+            cout << "w";
         }
+        if (ih.find('a') != ih.end() && ih['a']) {
+            cout << "a";
+        }
+        if (ih.find('s') != ih.end() && ih['s']) {
+            cout << "s";
+        }
+        if (ih.find('d') != ih.end() && ih['d']) {
+            cout << "d";
+        }
+        cout << endl;
         win.draw(shape);
         win.display();
     }
