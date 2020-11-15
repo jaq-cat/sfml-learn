@@ -1,10 +1,11 @@
 #include <SFML/Graphics.hpp>
 
-#define WIDTH 800
-#define HEIGHT 600
+#define WIDTH 1200
+#define HEIGHT 800
 
 int main() {
-    sf::RenderWindow win(sf::VideoMode(WIDTH, HEIGHT), "Window");
+    sf::RenderWindow win(sf::VideoMode(WIDTH, HEIGHT), "Window",
+            sf::Style::Titlebar);
     sf::CircleShape shape(100.0f);
     shape.setFillColor(sf::Color::Green);
 
