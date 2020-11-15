@@ -3,6 +3,7 @@
 
 #define RADIUS 20.0
 #define MOVESPEED 20.0
+#define OMOVESPEED 5.0
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -22,11 +23,15 @@ using std::endl;
 using std::unordered_map;
 
 int main() {
+    // settings
+    sf::ContextSettings settings;
+    settings.antialiasingLevel = 8;
     // create window
     sf::RenderWindow win(sf::VideoMode(WIDTH, HEIGHT), "Window",
-            sf::Style::Titlebar);
+            sf::Style::Titlebar, settings);
     win.setPosition(Vector2i(100, 100));
     win.setVerticalSyncEnabled(true);
+    win.setKeyRepeatEnabled(false);
 
     // input handler
     unordered_map<char, bool> ih = unordered_map<char, bool>();
@@ -34,11 +39,11 @@ int main() {
     // initialization
     // player
     CircleShape player(RADIUS);
-    player.setFillColor(Color::Green);
+    player.setFillColor(Color(250, 250, 40));
     // enemy
-    CircleShape enemy(RADIUS*2);
-    enemy.setFillColor(Color::Red);
-    float ex = 10, ey = 10;
+    CircleShape other(RADIUS*2);
+    other.setFillColor(Color(40, 250, 40));
+    float ex = OMOVESPEED, ey = OMOVESPEED;
 
     Vector2f pos;
 
@@ -93,7 +98,7 @@ int main() {
         if (ih.find('d') != ih.end() && ih['d']) {
             player.move(Vector2f(MOVESPEED, 0.0));
         }
-        enemy.move(ex, ey);
+        other.move(ex, ey);
         // collision
         pos = player.getPosition();
         if (pos.x < 0)
@@ -105,12 +110,12 @@ int main() {
             player.setPosition(pos.x, 0);
         else if (pos.y > HEIGHT - RADIUS * 2)
             player.setPosition(pos.x, HEIGHT - RADIUS * 2);
-        pos = enemy.getPosition();
+        pos = other.getPosition();
         if (pos.x < 0)
             ex *= -1;
         else if (pos.x > WIDTH - RADIUS * 4)
             ex *= -1;
-        pos = enemy.getPosition();
+        pos = other.getPosition();
         if (pos.y < 0)
             ey *= -1;
         else if (pos.y > HEIGHT - RADIUS * 4)
@@ -119,7 +124,7 @@ int main() {
         win.clear();
         cout << endl;
         win.draw(player);
-        win.draw(enemy);
+        win.draw(other);
         win.display();
     }
     return 0;
