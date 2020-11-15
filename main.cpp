@@ -6,6 +6,7 @@
 int main() {
     sf::RenderWindow win(sf::VideoMode(WIDTH, HEIGHT), "Window",
             sf::Style::Titlebar);
+    win.setPosition(sf::Vector2i(100, 100));
     sf::CircleShape shape(100.0f);
     shape.setFillColor(sf::Color::Green);
 
