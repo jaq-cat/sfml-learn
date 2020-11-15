@@ -33,6 +33,7 @@ int main() {
     // initialization
     sf::CircleShape shape(RADIUS);
     shape.setFillColor(Color::Green);
+    Vector2f pos;
 
     while (win.isOpen()) {
         // event handling
@@ -86,11 +87,16 @@ int main() {
             shape.move(Vector2f(MOVESPEED, 0.0));
         }
         // collision
-        sf::Vector2f pos = shape.getPosition();
+        pos = shape.getPosition();
         if (pos.x < 0)
             shape.setPosition(0, pos.y);
         else if (pos.x > WIDTH - RADIUS * 2)
             shape.setPosition(WIDTH - RADIUS * 2, pos.y);
+        pos = shape.getPosition();
+        if (pos.y < 0)
+            shape.setPosition(pos.x, 0);
+        else if (pos.y > HEIGHT - RADIUS * 2)
+            shape.setPosition(pos.x, HEIGHT - RADIUS * 2);
         // rendering
         win.clear();
         cout << endl;
