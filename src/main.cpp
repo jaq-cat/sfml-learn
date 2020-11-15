@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "input_handler.hpp"
+#include <unordered_map>
 
 using sf::Vector2u;
 using sf::Vector2i;
@@ -12,6 +12,7 @@ using sf::Keyboard;
 using std::string;
 using std::cout;
 using std::endl;
+using std::unordered_map;
 
 #define WIDTH 1200
 #define HEIGHT 800
@@ -24,7 +25,7 @@ int main() {
     win.setVerticalSyncEnabled(true);
 
     // input handler
-    InputHandler ih = InputHandler();
+    unordered_map<char, bool> ih = unordered_map<char, bool>();
 
     // initialization
     sf::CircleShape shape(100.0f);
@@ -44,24 +45,20 @@ int main() {
                         //cout << static_cast<char>(ev.text.unicode) << endl;
                     break;
                 case Event::KeyPressed:
-                    if (ev.key.code == Keyboard::W)
-                        ih.w = true;
-                    else if (ev.key.code == Keyboard::A)
-                        ih.a = true;
-                    else if (ev.key.code == Keyboard::S)
-                        ih.s = true;
-                    else if (ev.key.code == Keyboard::D)
-                        ih.d = true;
+                    if (ev.key.code == Keyboard::W) {
+                        ih['w'] = true;
+                    }
+                    //else if (ev.key.code == Keyboard::A)
+                    //else if (ev.key.code == Keyboard::S)
+                    //else if (ev.key.code == Keyboard::D)
                     break;
                 case Event::KeyReleased:
-                    if (ev.key.code == Keyboard::W)
-                        ih.w = false;
-                    else if (ev.key.code == Keyboard::A)
-                        ih.a = false;
-                    else if (ev.key.code == Keyboard::S)
-                        ih.s = false;
-                    else if (ev.key.code == Keyboard::D)
-                        ih.d = false;
+                    if (ev.key.code == Keyboard::W) {
+                        ih['w'] = false;
+                    }
+                    //else if (ev.key.code == Keyboard::A)
+                    //else if (ev.key.code == Keyboard::S)
+                    //else if (ev.key.code == Keyboard::D)
                     break;
                 default:
                     break;
@@ -70,7 +67,7 @@ int main() {
         }
         // rendering
         win.clear();
-        if (ih.w) {
+        if (ih.find('w') != ih.end() && ih['w']) {
             cout << "w" << endl;
         }
         win.draw(shape);
