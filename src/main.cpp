@@ -18,8 +18,6 @@ using sf::Keyboard;
 using sf::CircleShape;
 
 using std::string;
-using std::cout;
-using std::endl;
 using std::unordered_map;
 
 int main() {
@@ -30,7 +28,8 @@ int main() {
     sf::RenderWindow win(sf::VideoMode(WIDTH, HEIGHT), "Window",
             sf::Style::Titlebar, settings);
     win.setPosition(Vector2i(100, 100));
-    win.setVerticalSyncEnabled(true);
+    //win.setVerticalSyncEnabled(true);
+    win.setFramerateLimit(60);
     win.setKeyRepeatEnabled(false);
 
     // input handler
@@ -122,7 +121,6 @@ int main() {
             ey *= -1;
         // rendering
         win.clear();
-        cout << endl;
         win.draw(player);
         win.draw(other);
         win.display();
