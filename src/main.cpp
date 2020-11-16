@@ -39,7 +39,7 @@ int main() {
     // player
     CircleShape player(RADIUS);
     player.setFillColor(Color(250, 250, 40));
-    // enemy
+    // other
     CircleShape other(RADIUS*2);
     other.setFillColor(Color(40, 250, 40));
     float ex = OMOVESPEED, ey = OMOVESPEED;
